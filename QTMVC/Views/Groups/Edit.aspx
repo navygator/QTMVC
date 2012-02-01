@@ -59,7 +59,7 @@
             <%: Html.DisplayFor(modelItem => item.Organization.Name) %>
         </td>
         <td>
-            <%: Html.ActionLink("удалить из группы", "Delete", new { id=Model.Id }) %>
+            <%: Html.ActionLink("удалить из группы", "Delete", new { id=Model.Id, emplId=item.Id }) %>
         </td>
     </tr>
 <% } %>
@@ -67,7 +67,9 @@
 </table>
 
 <div>
-    <%: Html.ActionLink("Back to List", "Index") %>
+    <a href="<%: Url.Action("Create", "Groups") %>">
+        <button>Добавить студента</button>
+    </a>
 </div>
 
 </asp:Content>
