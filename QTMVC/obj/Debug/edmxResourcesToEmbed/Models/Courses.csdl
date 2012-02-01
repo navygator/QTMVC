@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Courses" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+  <EntityContainer Name="CoursesContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Instructors" EntityType="Courses.Instructor" />
+    <EntitySet Name="Organizations" EntityType="Courses.Organization" />
+    <AssociationSet Name="InstructorOrganization" Association="Courses.InstructorOrganization">
+      <End Role="Instructor" EntitySet="Instructors" />
+      <End Role="Organization" EntitySet="Organizations" />
+    </AssociationSet>
+    <EntitySet Name="Employees" EntityType="Courses.Employee" />
+    <EntitySet Name="Courses" EntityType="Courses.Course" />
+    <EntitySet Name="CourseGroups" EntityType="Courses.CourseGroup" />
+    <AssociationSet Name="CourseCourseGroup" Association="Courses.CourseCourseGroup">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="CourseGroup" EntitySet="CourseGroups" />
+    </AssociationSet>
+    <AssociationSet Name="InstructorCourseGroup" Association="Courses.InstructorCourseGroup">
+      <End Role="Instructor" EntitySet="Instructors" />
+      <End Role="CourseGroup" EntitySet="CourseGroups" />
+    </AssociationSet>
+    <AssociationSet Name="OrganizationEmployee" Association="Courses.OrganizationEmployee">
+      <End Role="Organization" EntitySet="Organizations" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="CoursesEmployees" Association="Courses.CoursesEmployees">
+      <End Role="CourseGroup" EntitySet="CourseGroups" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Instructor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Fio" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="EMail" Nullable="false" MaxLength="50" />
+    <NavigationProperty Name="Organizations" Relationship="Courses.InstructorOrganization" FromRole="Instructor" ToRole="Organization" />
+    <NavigationProperty Name="CourseGroups" Relationship="Courses.InstructorCourseGroup" FromRole="Instructor" ToRole="CourseGroup" />
+  </EntityType>
+  <EntityType Name="Organization">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="INN" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="InstructorId" Nullable="false" />
+    <NavigationProperty Name="Instructor" Relationship="Courses.InstructorOrganization" FromRole="Organization" ToRole="Instructor" />
+    <NavigationProperty Name="Employees" Relationship="Courses.OrganizationEmployee" FromRole="Organization" ToRole="Employee" />
+  </EntityType>
+  <Association Name="InstructorOrganization">
+    <End Type="Courses.Instructor" Role="Instructor" Multiplicity="1" />
+    <End Type="Courses.Organization" Role="Organization" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instructor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Organization">
+        <PropertyRef Name="InstructorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Fio" Nullable="false" />
+    <Property Type="Int32" Name="OrganizationId" Nullable="false" />
+    <NavigationProperty Name="Organization" Relationship="Courses.OrganizationEmployee" FromRole="Employee" ToRole="Organization" />
+    <NavigationProperty Name="CourseGroups" Relationship="Courses.CoursesEmployees" FromRole="Employee" ToRole="CourseGroup" />
+  </EntityType>
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" />
+    <NavigationProperty Name="CourseGroups" Relationship="Courses.CourseCourseGroup" FromRole="Course" ToRole="CourseGroup" />
+  </EntityType>
+  <EntityType Name="CourseGroup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="CourseId" Nullable="false" DefaultValue="1" />
+    <NavigationProperty Name="Course" Relationship="Courses.CourseCourseGroup" FromRole="CourseGroup" ToRole="Course" />
+    <Property Type="Int32" Name="InstructorId" Nullable="false" />
+    <NavigationProperty Name="Instructor" Relationship="Courses.InstructorCourseGroup" FromRole="CourseGroup" ToRole="Instructor" />
+    <NavigationProperty Name="Employees" Relationship="Courses.CoursesEmployees" FromRole="CourseGroup" ToRole="Employee" />
+    <Property Type="String" Name="Name" Nullable="false" />
+  </EntityType>
+  <Association Name="CourseCourseGroup">
+    <End Type="Courses.Course" Role="Course" Multiplicity="1" />
+    <End Type="Courses.CourseGroup" Role="CourseGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CourseGroup">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstructorCourseGroup">
+    <End Type="Courses.Instructor" Role="Instructor" Multiplicity="1" />
+    <End Type="Courses.CourseGroup" Role="CourseGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instructor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CourseGroup">
+        <PropertyRef Name="InstructorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrganizationEmployee">
+    <End Type="Courses.Organization" Role="Organization" Multiplicity="1" />
+    <End Type="Courses.Employee" Role="Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Organization">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="OrganizationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CoursesEmployees">
+    <End Type="Courses.CourseGroup" Role="CourseGroup" Multiplicity="*" />
+    <End Type="Courses.Employee" Role="Employee" Multiplicity="*" />
+  </Association>
+</Schema>

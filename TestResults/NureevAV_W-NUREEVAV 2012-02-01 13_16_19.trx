@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="4b0a51a3-1358-42f1-9954-7031b7755e09" name="NureevAV@W-NUREEVAV 2012-02-01 13:16:19" runUser="CORP\NureevAV" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Default Test Settings" id="23b9869a-6b8b-4ce0-8a6f-c47872bb796f">
+    <Deployment runDeploymentRoot="NureevAV_W-NUREEVAV 2012-02-01 13_16_19">
+      <DeploymentItem filename="D:\Work\My Documents\Visual Studio 2010\Projects\QTMVC\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll" />
+      <DeploymentItem filename="D:\Work\My Documents\Visual Studio 2010\Projects\QTMVC\QTMVC\bin\QTMVC.dll" />
+      <DeploymentItem filename="D:\Work\My Documents\Visual Studio 2010\Projects\QTMVC\packages\MvcSiteMapProvider.3.2.1.0\lib\net40\MvcSiteMapProvider.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2012-02-01T13:16:19.8023669+04:00" queuing="2012-02-01T13:16:33.6961616+04:00" start="2012-02-01T13:16:34.3962016+04:00" finish="2012-02-01T13:16:37.5533822+04:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="Index" storage="d:\work\my documents\visual studio 2010\projects\qtmvc\qtmvc.tests\bin\debug\qtmvc.tests.dll" id="02956672-24d8-6d8c-e639-eb7cf2065bdb">
+      <Execution id="1f24baae-5485-4233-a53e-47c51337b7ab" />
+      <TestMethod codeBase="D:/Work/My Documents/Visual Studio 2010/Projects/QTMVC/QTMVC.Tests/bin/Debug/QTMVC.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="QTMVC.Tests.Controllers.HomeControllerTest, QTMVC.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Index" />
+    </UnitTest>
+    <UnitTest name="About" storage="d:\work\my documents\visual studio 2010\projects\qtmvc\qtmvc.tests\bin\debug\qtmvc.tests.dll" id="ddc8372a-837a-56b7-6b7d-f84c46b8f008">
+      <Execution id="2b09c612-a935-43e6-ab80-3255b7c41720" />
+      <TestMethod codeBase="D:/Work/My Documents/Visual Studio 2010/Projects/QTMVC/QTMVC.Tests/bin/Debug/QTMVC.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="QTMVC.Tests.Controllers.HomeControllerTest, QTMVC.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="About" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="02956672-24d8-6d8c-e639-eb7cf2065bdb" executionId="1f24baae-5485-4233-a53e-47c51337b7ab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ddc8372a-837a-56b7-6b7d-f84c46b8f008" executionId="2b09c612-a935-43e6-ab80-3255b7c41720" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="1f24baae-5485-4233-a53e-47c51337b7ab" testId="02956672-24d8-6d8c-e639-eb7cf2065bdb" testName="Index" computerName="W-NUREEVAV" duration="00:00:00.8909076" startTime="2012-02-01T13:16:34.7272205+04:00" endTime="2012-02-01T13:16:37.2913672+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1f24baae-5485-4233-a53e-47c51337b7ab">
+    </UnitTestResult>
+    <UnitTestResult executionId="2b09c612-a935-43e6-ab80-3255b7c41720" testId="ddc8372a-837a-56b7-6b7d-f84c46b8f008" testName="About" computerName="W-NUREEVAV" duration="00:00:00.0003397" startTime="2012-02-01T13:16:37.3153686+04:00" endTime="2012-02-01T13:16:37.3343697+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2b09c612-a935-43e6-ab80-3255b7c41720">
+    </UnitTestResult>
+  </Results>
+</TestRun>

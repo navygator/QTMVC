@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0"
+			xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0 MvcSiteMapSchema.xsd"
+			enableLocalization="true">
+
+  <mvcSiteMapNode title="Учебные группы" controller="Groups" action="Index">
+	  <mvcSiteMapNode title="Создать учебную группу" controller="Groups" action="Create"/>
+	  <mvcSiteMapNode title="Редактировать учебную группу" controller="Groups" action="Edit"/>
+	  <mvcSiteMapNode title="About" controller="Home" action="About"/>
+  </mvcSiteMapNode>
+
+</mvcSiteMap>

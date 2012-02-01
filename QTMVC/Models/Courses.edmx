@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Courses.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="CoursesStoreContainer">
+    <EntitySet Name="Instructors" EntityType="Courses.Store.Instructors" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Organizations" EntityType="Courses.Store.Organizations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Employees" EntityType="Courses.Store.Employees" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Courses" EntityType="Courses.Store.Courses" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CourseGroups" EntityType="Courses.Store.CourseGroups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CoursesEmployees" EntityType="Courses.Store.CoursesEmployees" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="InstructorOrganization" Association="Courses.Store.InstructorOrganization">
+      <End Role="Instructor" EntitySet="Instructors" />
+      <End Role="Organization" EntitySet="Organizations" />
+    </AssociationSet>
+    <AssociationSet Name="CourseCourseGroup" Association="Courses.Store.CourseCourseGroup">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="CourseGroup" EntitySet="CourseGroups" />
+    </AssociationSet>
+    <AssociationSet Name="InstructorCourseGroup" Association="Courses.Store.InstructorCourseGroup">
+      <End Role="Instructor" EntitySet="Instructors" />
+      <End Role="CourseGroup" EntitySet="CourseGroups" />
+    </AssociationSet>
+    <AssociationSet Name="OrganizationEmployee" Association="Courses.Store.OrganizationEmployee">
+      <End Role="Organization" EntitySet="Organizations" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CoursesEmployees_CourseGroup" Association="Courses.Store.FK_CoursesEmployees_CourseGroup">
+      <End Role="CourseGroup" EntitySet="CourseGroups" />
+      <End Role="CoursesEmployees" EntitySet="CoursesEmployees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CoursesEmployees_Employee" Association="Courses.Store.FK_CoursesEmployees_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="CoursesEmployees" EntitySet="CoursesEmployees" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Instructors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fio" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="EMail" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Organizations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="INN" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="InstructorId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fio" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OrganizationId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Courses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CourseGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourseId" Type="int" Nullable="false" />
+    <Property Name="InstructorId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CoursesEmployees">
+    <Key>
+      <PropertyRef Name="CourseGroups_Id" />
+      <PropertyRef Name="Employees_Id" />
+    </Key>
+    <Property Name="CourseGroups_Id" Type="int" Nullable="false" />
+    <Property Name="Employees_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="InstructorOrganization">
+    <End Role="Instructor" Type="Courses.Store.Instructors" Multiplicity="1" />
+    <End Role="Organization" Type="Courses.Store.Organizations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instructor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Organization">
+        <PropertyRef Name="InstructorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CourseCourseGroup">
+    <End Role="Course" Type="Courses.Store.Courses" Multiplicity="1" />
+    <End Role="CourseGroup" Type="Courses.Store.CourseGroups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CourseGroup">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstructorCourseGroup">
+    <End Role="Instructor" Type="Courses.Store.Instructors" Multiplicity="1" />
+    <End Role="CourseGroup" Type="Courses.Store.CourseGroups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instructor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CourseGroup">
+        <PropertyRef Name="InstructorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrganizationEmployee">
+    <End Role="Organization" Type="Courses.Store.Organizations" Multiplicity="1" />
+    <End Role="Employee" Type="Courses.Store.Employees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Organization">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="OrganizationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CoursesEmployees_CourseGroup">
+    <End Role="CourseGroup" Type="Courses.Store.CourseGroups" Multiplicity="1" />
+    <End Role="CoursesEmployees" Type="Courses.Store.CoursesEmployees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CourseGroup">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CoursesEmployees">
+        <PropertyRef Name="CourseGroups_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CoursesEmployees_Employee">
+    <End Role="CoursesEmployees" Type="Courses.Store.CoursesEmployees" Multiplicity="*" />
+    <End Role="Employee" Type="Courses.Store.Employees" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CoursesEmployees">
+        <PropertyRef Name="Employees_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Courses" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="CoursesContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Instructors" EntityType="Courses.Instructor" />
+          <EntitySet Name="Organizations" EntityType="Courses.Organization" />
+          <AssociationSet Name="InstructorOrganization" Association="Courses.InstructorOrganization">
+            <End Role="Instructor" EntitySet="Instructors" />
+            <End Role="Organization" EntitySet="Organizations" />
+          </AssociationSet>
+          <EntitySet Name="Employees" EntityType="Courses.Employee" />
+          <EntitySet Name="Courses" EntityType="Courses.Course" />
+          <EntitySet Name="CourseGroups" EntityType="Courses.CourseGroup" />
+          <AssociationSet Name="CourseCourseGroup" Association="Courses.CourseCourseGroup">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="CourseGroup" EntitySet="CourseGroups" />
+          </AssociationSet>
+          <AssociationSet Name="InstructorCourseGroup" Association="Courses.InstructorCourseGroup">
+            <End Role="Instructor" EntitySet="Instructors" />
+            <End Role="CourseGroup" EntitySet="CourseGroups" />
+          </AssociationSet>
+          <AssociationSet Name="OrganizationEmployee" Association="Courses.OrganizationEmployee">
+            <End Role="Organization" EntitySet="Organizations" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="CoursesEmployees" Association="Courses.CoursesEmployees">
+            <End Role="CourseGroup" EntitySet="CourseGroups" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Instructor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Fio" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="EMail" Nullable="false" MaxLength="50" />
+          <NavigationProperty Name="Organizations" Relationship="Courses.InstructorOrganization" FromRole="Instructor" ToRole="Organization" />
+          <NavigationProperty Name="CourseGroups" Relationship="Courses.InstructorCourseGroup" FromRole="Instructor" ToRole="CourseGroup" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="INN" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="InstructorId" Nullable="false" />
+          <NavigationProperty Name="Instructor" Relationship="Courses.InstructorOrganization" FromRole="Organization" ToRole="Instructor" />
+          <NavigationProperty Name="Employees" Relationship="Courses.OrganizationEmployee" FromRole="Organization" ToRole="Employee" />
+        </EntityType>
+        <Association Name="InstructorOrganization">
+          <End Type="Courses.Instructor" Role="Instructor" Multiplicity="1" />
+          <End Type="Courses.Organization" Role="Organization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Organization">
+              <PropertyRef Name="InstructorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Fio" Nullable="false" />
+          <Property Type="Int32" Name="OrganizationId" Nullable="false" />
+          <NavigationProperty Name="Organization" Relationship="Courses.OrganizationEmployee" FromRole="Employee" ToRole="Organization" />
+          <NavigationProperty Name="CourseGroups" Relationship="Courses.CoursesEmployees" FromRole="Employee" ToRole="CourseGroup" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <NavigationProperty Name="CourseGroups" Relationship="Courses.CourseCourseGroup" FromRole="Course" ToRole="CourseGroup" />
+        </EntityType>
+        <EntityType Name="CourseGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="CourseId" Nullable="false" DefaultValue="1" />
+          <NavigationProperty Name="Course" Relationship="Courses.CourseCourseGroup" FromRole="CourseGroup" ToRole="Course" />
+          <Property Type="Int32" Name="InstructorId" Nullable="false" />
+          <NavigationProperty Name="Instructor" Relationship="Courses.InstructorCourseGroup" FromRole="CourseGroup" ToRole="Instructor" />
+          <NavigationProperty Name="Employees" Relationship="Courses.CoursesEmployees" FromRole="CourseGroup" ToRole="Employee" />
+          <Property Type="String" Name="Name" Nullable="false" />
+        </EntityType>
+        <Association Name="CourseCourseGroup">
+          <End Type="Courses.Course" Role="Course" Multiplicity="1" />
+          <End Type="Courses.CourseGroup" Role="CourseGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CourseGroup">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="InstructorCourseGroup">
+          <End Type="Courses.Instructor" Role="Instructor" Multiplicity="1" />
+          <End Type="Courses.CourseGroup" Role="CourseGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CourseGroup">
+              <PropertyRef Name="InstructorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OrganizationEmployee">
+          <End Type="Courses.Organization" Role="Organization" Multiplicity="1" />
+          <End Type="Courses.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="OrganizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CoursesEmployees">
+          <End Type="Courses.CourseGroup" Role="CourseGroup" Multiplicity="*" />
+          <End Type="Courses.Employee" Role="Employee" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CoursesStoreContainer" CdmEntityContainer="CoursesContainer">
+    <EntitySetMapping Name="Instructors">
+      <EntityTypeMapping TypeName="IsTypeOf(Courses.Instructor)">
+        <MappingFragment StoreEntitySet="Instructors">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Fio" ColumnName="Fio" />
+          <ScalarProperty Name="EMail" ColumnName="EMail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Organizations">
+      <EntityTypeMapping TypeName="IsTypeOf(Courses.Organization)">
+        <MappingFragment StoreEntitySet="Organizations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="INN" ColumnName="INN" />
+          <ScalarProperty Name="InstructorId" ColumnName="InstructorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="IsTypeOf(Courses.Employee)">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Fio" ColumnName="Fio" />
+          <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="IsTypeOf(Courses.Course)">
+        <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(Courses.CourseGroup)">
+        <MappingFragment StoreEntitySet="CourseGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="InstructorId" ColumnName="InstructorId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CoursesEmployees" TypeName="Courses.CoursesEmployees" StoreEntitySet="CoursesEmployees">
+      <EndProperty Name="CourseGroup">
+        <ScalarProperty Name="Id" ColumnName="CourseGroups_Id" />
+      </EndProperty>
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="Id" ColumnName="Employees_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="Courses" >
+        <EntityTypeShape EntityType="Courses.Instructor" Width="1.5" PointX="4.125" PointY="0.5" Height="1.787985026041667" />
+        <EntityTypeShape EntityType="Courses.Organization" Width="1.5" PointX="6.75" PointY="0.5" Height="1.9802864583333339" />
+        <AssociationConnector Association="Courses.InstructorOrganization">
+          <ConnectorPoint PointX="5.625" PointY="1.3939925130208335" />
+          <ConnectorPoint PointX="6.75" PointY="1.3939925130208335" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Courses.Employee" Width="1.5" PointX="6.75" PointY="3.125" Height="1.7879850260416665" />
+        <EntityTypeShape EntityType="Courses.Course" Width="1.5" PointX="1.875" PointY="3.125" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="Courses.CourseGroup" Width="1.5" PointX="4.125" PointY="3.125" Height="2.3648893229166665" />
+        <AssociationConnector Association="Courses.CourseCourseGroup">
+          <ConnectorPoint PointX="3.375" PointY="3.922841796875" />
+          <ConnectorPoint PointX="4.125" PointY="3.922841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="Courses.InstructorCourseGroup">
+          <ConnectorPoint PointX="4.875" PointY="2.4802864583333335" />
+          <ConnectorPoint PointX="4.875" PointY="3.125" />
+        </AssociationConnector>
+        <AssociationConnector Association="Courses.OrganizationEmployee">
+          <ConnectorPoint PointX="7.5" PointY="2.672587890625" />
+          <ConnectorPoint PointX="7.5" PointY="3.125" />
+        </AssociationConnector>
+        <AssociationConnector Association="Courses.CoursesEmployees" >
+          <ConnectorPoint PointX="5.625" PointY="4.1151432291666659" />
+          <ConnectorPoint PointX="6.75" PointY="4.1151432291666659" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
