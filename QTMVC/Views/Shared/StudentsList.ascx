@@ -6,7 +6,7 @@
             Название
         </th>
         <th>
-            Преподаватель
+            Организация
         </th>
         <th>
         </th>
@@ -21,7 +21,7 @@
             <%: Html.DisplayFor(modelItem => item.Organization.Name) %>
         </td>
         <td>
-            <%: Html.ActionLink("удалить из группы", "Delete", new { emplId=item.Id }) %>
+            <%: Html.ActionLink("удалить из группы", "Delete", "Students", new { emplId=item.Id }, null) %>
         </td>
     </tr>
 <% } %>

@@ -13,7 +13,7 @@ namespace QTMVC.Models
 		{
 			get
 			{
-				if (Employee != null) return Employee.Id;
+				if (Group != null) return Group.Id;
 				else return -1;
 			}
 			set
@@ -26,7 +26,7 @@ namespace QTMVC.Models
 		{
 			get
 			{
-				if (Group != null) return Group.Id;
+				if (Employee != null) return Employee.Id;
 				else return -1;
 			}
 			set
@@ -50,6 +50,8 @@ namespace QTMVC.Models
 		public bool Save()
 		{
 			bool retVal = false;
+			Employee = db.Employees.First(e => e.Id == EmployeeId);
+			Group = db.CourseGroups.First(g => g.Id == GroupId);
 
 			if (Employee != null && Group != null)
 			{

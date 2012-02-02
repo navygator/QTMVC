@@ -11,7 +11,7 @@
         $("#OrganizationId").change(function () {
             var selectedOrg = $(this).val();
             if (selectedOrg != null && selectedOrg != '') {
-                $.getJSON('<%:Url.Action("Employees") %>', { organizationId: selectedOrg, groupId:  }, function (employees) {
+                $.getJSON('<%:Url.Action("Employees") %>', { organizationId: selectedOrg, groupId: $('#GroupId').val()  }, function (employees) {
                     var employeeSelect = $('#EmployeeId');
                     employeeSelect.empty();
                     $.each(employees, function (index, employee) {
@@ -28,20 +28,28 @@
 
 <h2>Добавить студента в учебную группу</h2>
 <p><%: Html.MvcSiteMap().SiteMapPath() %></p>
-
-<div class="editor-label">
-    <%: Html.Label("GroupId", "Учебная группа:") %>
-    <%: Html.Label("OrganizationId", "Организация:") %>
+<% 
+    var instructor = ViewBag.Instructor;
+%>
+<div class="group-details">
+    <div class="editor-label">
+        <%: Html.Label("GroupId", "Учебная группа:") %>
+        <strong>
+        <%: LabelExtensions.Label(Html, "GroupName", Model.Group.Name)%>
+        </strong>
+    </div>
+    <div class="editor-label">
+        <%: Html.Label("InstructorId", "Преподаватель:") %>
+        <strong>
+        <%: LabelExtensions.Label(Html, "InstructorName", instructor.Fio)%>
+        </strong><br />
+    </div>
 </div>
-<div class="editor-label">
-    <%: Html.Label("OrganizationId", "Организация:") %>
-</div>
-
 <% using (Html.BeginForm()) { %>
     <%: Html.ValidationSummary(true) %>
     <fieldset>
         <legend>Студент</legend>
-
+        <%: Html.HiddenFor(model => model.GroupId) %>
         <div class="editor-label">
             <%: Html.Label("OrganizationId", "Организация:") %>
         </div>

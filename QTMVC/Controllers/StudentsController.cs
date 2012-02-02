@@ -17,16 +17,14 @@ namespace QTMVC.Controllers
 			return View();
 		}
 
-
 		//
 		// GET: /Students/
 
 		public ActionResult Create(int groupId)
 		{
 			var student = new Student();
-			var group = CourseGroup.Find(groupId); 
-			ViewBag.Group = group;
-			ViewBag.Insructor = group.Instructor;
+			student.GroupId = groupId;
+			ViewBag.Instructor = student.Group.Instructor;
 			ViewBag.OrganizationId = new SelectList(Organization.All(), "Id", "Name");
 			ViewBag.EmployeeId = new SelectList(Employee.FindByOrganization(-1));
 
@@ -36,18 +34,23 @@ namespace QTMVC.Controllers
 		[HttpPost]
 		public ActionResult Create(Student student)
 		{
-			if (ModelState.IsValid)
+			if (ModelState.IsValid && student.Save())
 			{
 				return RedirectToAction("Edit", "Groups", new { id=student.GroupId});
 			}
 			else
 			{
 				ViewBag.Group = student.Group;
-				ViewBag.Insructor = student.Group.Instructor;
+				ViewBag.Instructor = student.Group.Instructor;
 				ViewBag.OrganizationId = new SelectList(Organization.All(), "Id", "Name");
 				ViewBag.EmployeeId = new SelectList(Employee.FindByOrganization(-1));
 				return View(student);
 			}
+		}
+
+		public ActionResult Delete(int emplId)
+		{
+			return View();
 		}
 
 		public JsonResult Employees(int organizationId, int groupId)

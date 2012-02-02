@@ -17,11 +17,12 @@
     <fieldset>
     <legend>Учебная группа</legend>
         <div class="editor-label">
-            <%: 
-                Html.LabelFor(model => model.InstructorId, "Преподаватель:")
-            %>
+            <%: Html.LabelFor(model => model.InstructorId, "Преподаватель:") %>
+            <strong>
+            <%: Html.LabelFor(model => model.InstructorId, Model.Instructor.Fio) %>
+            </strong>
         </div>
-
+        <%: Html.HiddenFor(model => model.InstructorId) %>
         <%: Html.HiddenFor(model => model.Id) %>
 
         <div class="editor-label">
