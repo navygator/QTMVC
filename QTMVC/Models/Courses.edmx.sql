@@ -106,6 +106,7 @@ GO
 
 -- Creating table 'CoursesEmployees'
 CREATE TABLE [dbo].[CoursesEmployees] (
+    [Id] int  IDENTITY(1,1) NOT NULL,
     [CourseGroups_Id] int  NOT NULL,
     [Employees_Id] int  NOT NULL
 );
@@ -145,10 +146,10 @@ ADD CONSTRAINT [PK_CourseGroups]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [CourseGroups_Id], [Employees_Id] in table 'CoursesEmployees'
+-- Creating primary key on [Id] in table 'CoursesEmployees'
 ALTER TABLE [dbo].[CoursesEmployees]
 ADD CONSTRAINT [PK_CoursesEmployees]
-    PRIMARY KEY NONCLUSTERED ([CourseGroups_Id], [Employees_Id] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -228,10 +229,10 @@ ADD CONSTRAINT [FK_CoursesEmployees_Employee]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
--- Creating non-clustered index for FOREIGN KEY 'FK_CoursesEmployees_Employee'
-CREATE INDEX [IX_FK_CoursesEmployees_Employee]
+-- Creating non-clustered index for 'CoursesEmployees'
+CREATE INDEX [IX_CoursesEmployees]
 ON [dbo].[CoursesEmployees]
-    ([Employees_Id]);
+    ([Employees_Id], [CourseGroups_Id]);
 GO
 
 -- --------------------------------------------------

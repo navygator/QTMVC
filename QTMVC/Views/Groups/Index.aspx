@@ -44,7 +44,7 @@
 </table>
 <p>
     <a href="<%: Url.Action("Create", "Groups") %>">
-        <button>Создать учебную группу</button>
+        <button class="link-button">Создать учебную группу</button>
     </a>
 </p>
 

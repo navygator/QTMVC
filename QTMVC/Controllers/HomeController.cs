@@ -18,5 +18,10 @@ namespace QTMVC.Controllers
 		{
 			return View();
 		}
+
+		public ActionResult GetTime()
+		{
+			return Json(DateTime.Now.ToString(), JsonRequestBehavior.AllowGet);
+		}
 	}
 }

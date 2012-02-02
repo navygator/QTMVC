@@ -15,13 +15,15 @@
 <% using (Html.BeginForm()) { %>
     <%: Html.ValidationSummary(true) %>
     <fieldset>
-        <legend>CourseGroup</legend>
+    <legend>Учебная группа</legend>
+        <div class="editor-label">
+            <%: 
+                Html.LabelFor(model => model.InstructorId, "Преподаватель:")
+            %>
+        </div>
 
         <%: Html.HiddenFor(model => model.Id) %>
 
-        <div class="editor-label">
-            <%: Html.LabelFor(model => model.Instructor.Fio, "Преподаватель:")%>
-        </div>
         <div class="editor-label">
             <%: Html.LabelFor(model => model.Name, "Название учебной группы") %>
         </div>
@@ -33,42 +35,12 @@
         <p>
             <input type="submit" value="Сохранить изменения" />
         </p>
+        <% Html.RenderPartial("StudentsList", Model.Employees); %>
     </fieldset>
 <% } %>
-<table>
-    <tr>
-        <th>
-            Название
-        </th>
-        <th>
-            Преподаватель
-        </th>
-        <th>
-            Количество студентов
-        </th>
-        <th>
-        </th>
-    </tr>
-
-<% foreach (var item in Model.Employees) { %>
-    <tr>
-        <td>
-            <%: Html.DisplayFor(modelItem => item.Fio) %>
-        </td>
-        <td>
-            <%: Html.DisplayFor(modelItem => item.Organization.Name) %>
-        </td>
-        <td>
-            <%: Html.ActionLink("удалить из группы", "Delete", new { id=Model.Id, emplId=item.Id }) %>
-        </td>
-    </tr>
-<% } %>
-
-</table>
-
 <div>
-    <a href="<%: Url.Action("Create", "Groups") %>">
-        <button>Добавить студента</button>
+    <a href="<%: Url.Action("Create", "Students", new { groupId=Model.Id }) %>">
+        <button class="link-button">Добавить студента</button>
     </a>
 </div>
 
