@@ -23,15 +23,6 @@ namespace QTMVC.Controllers
 		}
 
 		//
-		// GET: /Groups/Details/5
-
-		public ViewResult Details(int id)
-		{
-			CourseGroup coursegroup = db.CourseGroups.Single(c => c.Id == id);
-			return View(coursegroup);
-		}
-
-		//
 		// GET: /Groups/Create
 
 		public ActionResult Create()
@@ -90,10 +81,10 @@ namespace QTMVC.Controllers
 
 		//
 		// GET: /Groups/Delete/5
- 
-		public ActionResult Delete(int id)
+
+		public ActionResult Delete(int emplId)
 		{
-			CourseGroup coursegroup = db.CourseGroups.Single(c => c.Id == id);
+			CourseGroup coursegroup = db.CourseGroups.Single(c => c.Id == emplId);
 			return View(coursegroup);
 		}
 
