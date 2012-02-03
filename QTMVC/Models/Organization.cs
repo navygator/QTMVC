@@ -16,7 +16,7 @@ namespace QTMVC.Models
 
 		public static Organization Find(int id)
 		{
-			var organization = db.Organizations.First(o => o.Id == id);
+			var organization = db.Organizations.Single(o => o.Id == id);
 			return organization;
 		}
 	}

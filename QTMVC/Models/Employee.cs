@@ -16,7 +16,7 @@ namespace QTMVC.Models
 
 		public static Employee Find(int id)
 		{
-			var employee = db.Employees.First(e => e.Id == id);
+			var employee = db.Employees.Single(e => e.Id == id);
 			return employee;
 		}
 

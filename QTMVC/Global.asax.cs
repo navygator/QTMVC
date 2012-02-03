@@ -22,11 +22,16 @@ namespace QTMVC
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 			routes.MapRoute(
+				"Students",
+				"Students/{action}/{groupId}/{id}",
+				new { controller = "Students", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+			);
+
+			routes.MapRoute(
 				"Default", // Route name
 				"{controller}/{action}/{id}", // URL with parameters
 				new { controller = "Groups", action = "Index", id = UrlParameter.Optional } // Parameter defaults
 			);
-
 		}
 
 		protected void Application_Start()

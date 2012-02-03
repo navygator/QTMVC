@@ -10,15 +10,19 @@ namespace QTMVC.Models
 	{
 		private static CoursesContainer db = new CoursesContainer();
 
-		public static List<CourseGroup> All()
-		{
-			return db.CourseGroups.ToList();
-		}
-
 		public static CourseGroup Find(int id)
 		{
-			var group = db.CourseGroups.First(g => g.Id == id);
+			var group = db.CourseGroups.Single(g => g.Id == id);
 			return group;
+		}
+
+		public bool Save()
+		{
+			bool retVal = false;
+
+			if (db.SaveChanges() > 0) retVal = true;
+
+			return retVal;
 		}
 	}
 }

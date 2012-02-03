@@ -48,14 +48,17 @@ namespace QTMVC.Controllers
 			}
 		}
 
-		public ActionResult Delete(int emplId)
+		public ActionResult Delete(int groupId, int Id)
 		{
-			return View();
+			Student.Delete(groupId, Id);
+			return RedirectToAction("Edit", "Groups", new { Id = groupId });
 		}
 
 		public JsonResult Employees(int organizationId, int groupId)
 		{
-			var json = Json(new SelectList(Employee.FindByOrganization(organizationId) , "Id", "Fio", 0), JsonRequestBehavior.AllowGet);
+			//var group = CourseGroup.Find(groupId);
+			var employees = Employee.FindByOrganization(organizationId).Where(e => e.CourseGroups.All(g => g.Id != groupId));
+			var json = Json(new SelectList(employees , "Id", "Fio", 0), JsonRequestBehavior.AllowGet);
 			return json;
 		}
 	}

@@ -21,7 +21,7 @@
             <%: Html.DisplayFor(modelItem => item.Organization.Name) %>
         </td>
         <td>
-            <%: Html.ActionLink("удалить из группы", "Delete", "Students", new { emplId=item.Id }, null) %>
+            <%: Html.ActionLink("удалить из группы", "Delete", "Students", new { groupId = ViewData["groupId"], Id=item.Id }, null) %>
         </td>
     </tr>
 <% } %>

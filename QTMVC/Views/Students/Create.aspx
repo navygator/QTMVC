@@ -11,9 +11,15 @@
         $("#OrganizationId").change(function () {
             var selectedOrg = $(this).val();
             if (selectedOrg != null && selectedOrg != '') {
-                $.getJSON('<%:Url.Action("Employees") %>', { organizationId: selectedOrg, groupId: $('#GroupId').val()  }, function (employees) {
+                $.getJSON('<%:Url.Action("Employees") %>', { organizationId: selectedOrg, groupId: $('#GroupId').val() }, function (employees) {
                     var employeeSelect = $('#EmployeeId');
                     employeeSelect.empty();
+                    if (employees.length < 1) {
+                        employeeSelect.append($('<option/>', {
+                            value: "",
+                            text: "Выберите сотрудника"
+                        }));
+                    }
                     $.each(employees, function (index, employee) {
                         employeeSelect.append($('<option/>', {
                             value: employee.Value,

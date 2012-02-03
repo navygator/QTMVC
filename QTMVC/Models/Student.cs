@@ -9,6 +9,19 @@ namespace QTMVC.Models
 	{
 		private static CoursesContainer db = new CoursesContainer();
 
+		public static bool Delete(int groupId, int employeeId)
+		{
+			bool retVal = false;
+
+			var group = db.CourseGroups.First(g => g.Id == groupId);
+			var employee = db.Employees.First(e => e.Id == employeeId); ;
+			group.Employees.Remove(employee);
+
+			if (db.SaveChanges() > 0) retVal = true;
+			
+			return retVal;
+		}
+
 		public int GroupId
 		{
 			get
@@ -50,13 +63,14 @@ namespace QTMVC.Models
 		public bool Save()
 		{
 			bool retVal = false;
+			// Создаем ссылки на объекты в одном контексте
 			Employee = db.Employees.First(e => e.Id == EmployeeId);
 			Group = db.CourseGroups.First(g => g.Id == GroupId);
 
 			if (Employee != null && Group != null)
 			{
 				Group.Employees.Add(Employee);
-				if (db.SaveChanges() == 1)
+				if (db.SaveChanges() > 0)
 				{
 					retVal = true;
 				}

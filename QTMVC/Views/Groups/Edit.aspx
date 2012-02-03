@@ -36,7 +36,8 @@
         <p>
             <input type="submit" value="Сохранить изменения" />
         </p>
-        <% Html.RenderPartial("StudentsList", Model.Employees); %>
+        <% ViewData["groupId"] = Model.Id; %>
+        <% Html.RenderPartial("StudentsList", Model.Employees, ViewData); %>
     </fieldset>
 <% } %>
 <div>
